@@ -19,7 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.cysecurity.cspf.jvl.model.DBConnect;
  
- 
+
+           String userId = request.getParameter("userId");
+           if (userId != null) {
+               try {
+                   Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/vulnerableDB", "root", "password");
+                   Statement stmt = conn.createStatement();
+                   String query = "SELECT * FROM users WHERE id = '" + userId + "'";
+                   ResultSet rs = stmt.executeQuery(query);
+                   while (rs.next()) {
+                       out.println("User: " + rs.getString("username"));
 
 /**
  *
